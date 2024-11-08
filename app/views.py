@@ -1,7 +1,7 @@
 import copy
 from django.http import HttpResponse
 from django.shortcuts import render
-from django.core.paginator import Paginator
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 QUESTIONS = [
     {
@@ -15,7 +15,16 @@ QUESTIONS = [
 def index(request):
     page_num = int(request.GET.get('page', 1))
     paginator = Paginator(QUESTIONS, 5)
-    page = paginator.page(page_num)
+    
+    try:
+        page = paginator.page(page_num)
+
+    except PageNotAnInteger:
+        page = paginator.page(1)
+
+    except EmptyPage:
+        page = paginator.page(paginator.num_pages)
+    
     return render(
         request, 
         'index.html', 
@@ -26,13 +35,38 @@ def index(request):
 def hot(request):
     hoy_questions = copy.deepcopy(QUESTIONS)
     hoy_questions.reverse()
+    page_num = int(request.GET.get('page', 1))
+    paginator = Paginator(hoy_questions, 5)
+    
+    try:
+        page = paginator.page(page_num)
+
+    except PageNotAnInteger:
+        page = paginator.page(1)
+
+    except EmptyPage:
+        page = paginator.page(paginator.num_pages)
+
     return render(
-        request, 
-        'hot.html', 
-        context={'questions':hoy_questions}
+        request,
+        'hot.html',
+        context={'questions': page.object_list, 'page_obj': page}
     )
 
 def question(request, question_id):
     one_question = QUESTIONS[question_id]
     return render(request, 'one_question.html', 
                 {'item': one_question})
+
+
+def login(request):
+    return render(request, 'login.html')
+
+def signup(request):
+    return render(request, 'signup.html')
+
+def ask(request):
+    return render(request, 'ask.html')
+
+def setting(request):
+    return render(request, 'setting.html')

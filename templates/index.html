@@ -10,7 +10,7 @@
             </div>
 
             <div class="col-9">
-            
+                <div class="d-flex flex-column gap-3">
                     {% for question in questions%}
 
                         {% include 'layouts/question.html' %}
@@ -19,6 +19,7 @@
 
                 
                     {% include 'layouts/pagination.html' %}
+                </div>
             </div>
             
 {% endblock  %}

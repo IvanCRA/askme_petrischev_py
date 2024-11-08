@@ -1,30 +1,11 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Log In</title>
-    <link rel="stylesheet" href="./../static/css/bootstrap.min.css">
-  </head>
-  <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Warhammer:40KAsk</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Ask">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
-        </div>
-    </nav>
 
+{% extends "layouts/base.html" %}
 
+{% load static %}       
 
-    <main class="container mt-3">
-      <div class="row">
-        <div class="col-9">
+{% block content %}
+
+    <div class="col-9">
           <div id="errorMessage" class="alert alert-danger text-center mt-3 d-none" role="alert">
             Incorrect password. Please try again.
           </div>
@@ -47,38 +28,7 @@
           </p>
         </div>
 
-        <div class="col-3">
-          <section class="mb-3">
-            <h2>Popular Tags</h2>
-            <div>
-              <span class="badge text-bg-primary">Primary</span>
-              <span class="badge text-bg-secondary">Secondary</span>
-              <span class="badge text-bg-success">Success</span>
-              <span class="badge text-bg-danger">Danger</span>
-              <span class="badge text-bg-warning">Warning</span>
-              <span class="badge text-bg-info">Info</span>
-              <span class="badge text-bg-light">Light</span>
-              <span class="badge text-bg-dark">Dark</span>
-            </div>
-          </section>
-
-          <section>
-            <h2>Member Best</h2>
-            <div>
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item"><a href="#">Member</a></li>
-                <li class="list-group-item"><a href="#">Member</a></li>
-                <li class="list-group-item"><a href="#">Member</a></li>
-                <li class="list-group-item"><a href="#">Member</a></li>
-                <li class="list-group-item"><a href="#">Member</a></li>
-              </ul>
-            </div>
-          </section>
-        </div>
-      </div>
-    </main>
-
-    <script src="./../static/js/bootstrap.min.js"></script>
+       
     <script>
       document.getElementById('loginForm').addEventListener('submit', function(event) {
         event.preventDefault();
@@ -93,5 +43,4 @@
         }
       });
     </script>
-  </body>
-</html>
+{% endblock  %}
