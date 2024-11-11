@@ -1,4 +1,9 @@
 from django.contrib import admin
-from .models import MyModel
+from app import models
 
-admin.site.register(MyModel)
+admin.site.register(models.Profile)
+admin.site.register(models.Tag)
+admin.site.register(models.Question)
+admin.site.register(models.Answer)
+admin.site.register(models.QuestionLike)
+admin.site.register(models.AnswerLike)
