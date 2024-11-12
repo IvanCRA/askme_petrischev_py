@@ -6,27 +6,22 @@
                 <div class="border mb-2" style="height: 100px;">
                     <img src="{% static 'img/spacemarines_soup.jpg' %}" alt="Avatar" class="img-thumbnail img-fluid">
                 </div>
-                <input type="number" class="form-control" value="5" placeholder="Default input" aria-label="default input example">
+                <input type="number" class="form-control" placeholder="{{ question.likes.count }}" aria-label="default input example">
 
             </div>
             <div class="col-9">
 
-                <h5 class="card-title"> <a href="{% url 'one_question' question.id %}"> {{question.title}} </a></h5>
+                <h5 class="card-title"> <a href="{% url 'question' question.id %}"> {{question.title}} </a></h5>
                 <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
                 <p class="card-text"> {{question.text}} </p>
 
                 <div class="d-flex gap-5">
-                    <a href="#" class="card-link">Answer (3)</a>
-                <div>
-                    Tags:
-                    
-                    <a href="#" class="card-link">Another link</a>
-                    <a href="#" class="card-link">Another link</a>
-                    <a href="#" class="card-link">Another link</a>
-                    <a href="#" class="card-link">Another link</a>
-                    <a href="#" class="card-link">Another link</a>
+                    <a href="{% url 'question' question.id %}" class="card-link">Answer (3)</a>
+                    <div>Tags:</div>
 
-                </div>
+                    {% for tag in question.tags.all %}
+                        {% include 'layouts/tag-element.html' %}
+                    {% endfor %}
                     
                 </div>
             </div>

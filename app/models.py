@@ -3,10 +3,14 @@ from django.contrib.auth.models import User
 
 
 class QuestionManager(models.Manager):
+    
+    def get_question_by_id(self, question_id):
+        return self.get(pk=question_id)
+
     def new(self):
         return self.order_by('-created_at')
 
-    def best(self):
+    def get_best_questions(self):
         return self.annotate(likes_count=models.Count('likes')).order_by('-likes_count')
 
     def get_questions_by_tag_name(self, tag_name):
