@@ -1,6 +1,7 @@
 import copy
 from django.http import HttpResponse
 from django.shortcuts import render
+from .models import Question, Answer
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 QUESTIONS = [
@@ -14,7 +15,8 @@ QUESTIONS = [
 
 def index(request):
     page_num = int(request.GET.get('page', 1))
-    paginator = Paginator(QUESTIONS, 5)
+    questions = Question.objects.all().order_by('-created_at')
+    paginator = Paginator(questions, 5)
     
     try:
         page = paginator.page(page_num)
