@@ -11,19 +11,24 @@ QUESTIONS = [
     } for i in range(30)
 ]
 
-
-def index(request):
-    page_num = int(request.GET.get('page', 1))
-    paginator = Paginator(QUESTIONS, 5)
+def paginate(obj_list, req, per_page=4):
+    try:
+        page_num = int(req.GET.get('page', 1))
+    except ValueError:
+        page_num = 1
+    
+    paginator = Paginator(obj_list, per_page)
     
     try:
-        page = paginator.page(page_num)
-
-    except PageNotAnInteger:
-        page = paginator.page(1)
+        return paginator.page(page_num)
 
     except EmptyPage:
-        page = paginator.page(paginator.num_pages)
+        return paginator.page(paginator.num_pages)
+
+    
+
+def index(request):
+    page = paginate(QUESTIONS, request, 5)
     
     return render(
         request, 
@@ -35,17 +40,7 @@ def index(request):
 def hot(request):
     hoy_questions = copy.deepcopy(QUESTIONS)
     hoy_questions.reverse()
-    page_num = int(request.GET.get('page', 1))
-    paginator = Paginator(hoy_questions, 5)
-    
-    try:
-        page = paginator.page(page_num)
-
-    except PageNotAnInteger:
-        page = paginator.page(1)
-
-    except EmptyPage:
-        page = paginator.page(paginator.num_pages)
+    page = paginate(hoy_questions, request, 5)
 
     return render(
         request,
@@ -70,3 +65,6 @@ def ask(request):
 
 def setting(request):
     return render(request, 'setting.html')
+
+def tag(request):
+    return render(request, 'tag.html')
