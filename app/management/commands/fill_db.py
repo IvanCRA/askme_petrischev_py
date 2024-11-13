@@ -27,7 +27,11 @@ class Command(BaseCommand):
                 except IntegrityError:
                     continue
 
-        tags = [Tag.objects.create(name=fake.word()) for _ in range(ratio)]
+        tags = []
+        for _ in range(ratio):
+            tag_name = fake.unique.word()
+            tag, created = Tag.objects.get_or_create(name=tag_name)
+            tags.append(tag)
         
         questions = []
         for _ in range(ratio * 10):

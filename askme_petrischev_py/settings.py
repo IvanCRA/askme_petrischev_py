@@ -80,7 +80,7 @@ WSGI_APPLICATION = 'askme_petrischev_py.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'askmedb',
+        'NAME': 'askmewahdb',
         'USER': 'postgres',
         'PASSWORD': '123',
         'HOST': '172.17.0.3',
