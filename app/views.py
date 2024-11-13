@@ -93,7 +93,7 @@ def question(request, question_id):
 def tag(request, tag_name):
     questions = Question.objects.get_questions_by_tag_name(tag_name)
     popular_tags = Tag.objects.get_popular_n_tags()
-    top_users = Profile.objects.get_top_n_users_by_number_of_answers(5)
+    #top_users = Profile.objects.get_top_n_users_by_number_of_answers(5)
 
     page_num = int(request.GET.get('page', 1))
     paginator = Paginator(questions, 5)
@@ -117,7 +117,7 @@ def tag(request, tag_name):
             'tag_name': tag_name,
 
             'popular_tags': popular_tags,
-            'top_users': top_users
+           # 'top_users': top_users
         }
     )
 

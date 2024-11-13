@@ -4,9 +4,9 @@
         <div class="row">
             <div class="col-3">
                 <div class="border mb-2" style="height: 100px;">
-                    <img src="image.jpg" alt="Avatar" class="img-thumbnail img-fluid">
+                    <img src="{% static 'img/spacemarines_soup.jpg' %}" alt="Avatar" class="img-thumbnail img-fluid">
                 </div>
-                <input type="number" class="form-control" value="5" placeholder="Default input" aria-label="default input example">
+                <input type="number" class="form-control" placeholder="{{ answer.likes.count }}" aria-label="default input example">
 
             </div>
             <div class="col-9">
