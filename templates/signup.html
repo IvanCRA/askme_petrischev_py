@@ -51,16 +51,16 @@
     </div>
 
     <script>
-      document.getElementById('registrationForm').addEventListener('submit', function(event) {
-        event.preventDefault();
+        document.getElementById('registrationForm').addEventListener('submit', function(event) {
+            event.preventDefault();
 
-        const email = document.getElementById('email').value;
-        if (email === "existing@example.com") { // Здесь проверяется, существует ли email
-          document.getElementById('errorAlert').style.display = 'block';
-        } else {
-          document.getElementById('errorAlert').style.display = 'none';
-          alert("Registration submitted successfully!");
-        }
-      });
+            const email = document.getElementById('email').value;
+            if (email === "existing@example.com") { 
+            document.getElementById('errorAlert').style.display = 'block';
+            } else {
+            document.getElementById('errorAlert').style.display = 'none';
+            alert("Registration submitted successfully!");
+            }
+        });
     </script>
     {% endblock  %}

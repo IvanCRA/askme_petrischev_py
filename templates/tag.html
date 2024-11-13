@@ -3,62 +3,22 @@
 {% load static %}
 
 {% block content %}
-        <div class="col-9">
-                <div class="d-flex flex-column gap-3">
-                    <div class="d-flex gap-3 align-items-center">
-                        <h1>Questions Tagged: Selected Tag</h1>
-                    </div>
-                    <div class="card w-100" style="width: 18rem;">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-3">
-                                    <div class="border mb-2" style="height: 100px;">
-                                        <img src="image.jpg" alt="Avatar" class="img-thumbnail img-fluid">
-                                    </div>
-                                    <input type="number" class="form-control" value="5" placeholder="Default input" aria-label="default input example">
 
-                                </div>
-                                <div class="col-9">
-
-                                    <h5 class="card-title">Question title</h5>
-                                    <h6 class="card-subtitle mb-2 text-body-secondary">Subtitle</h6>
-                                    <p class="card-text">Brief description of the question content goes here...</p>
-        
-                                    <div class="d-flex gap-5">
-                                        <a href="#" class="card-link">Answer (3)</a>
-                                        <div>Tags:
-                                            <a href="#" class="badge bg-primary text-decoration-none">Tag1</a>
-                                            <a href="#" class="badge bg-secondary text-decoration-none">Tag2</a>
-                                            <a href="#" class="badge bg-info text-decoration-none">Tag3</a>
-                                          </div>
-                                        
-                                    </div>
-                                </div>
-                            </div>
-
-                        
-                        </div>
-                    </div>
-
-
-                    <nav aria-label="Page navigation" class="mt-3">
-                        <ul class="pagination">
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                </a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
+            <div class="col-9">
+            
+                <div class="d-flex gap-3 align-items-center">
+                    <h1>Questions Tagged: {{ tag_name }}</h1>
                 </div>
-        </div>
+                <div class="d-flex flex-column gap-3">
+                    {% for question in questions%}
+
+                        {% include 'components/question.html' %}
+
+                    {% endfor %}
+
+                    {% include 'components/pagination.html' %}
+                    
+                </div>
+            </div>
 
         {% endblock  %}

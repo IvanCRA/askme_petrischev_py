@@ -25,9 +25,8 @@ class AnswerManager(models.Manager):
 
 
 class ProfileManager(models.Manager):
-    def get_top_n_users_by_number_of_answers(self, n):
-        return self.annotate(answers_count=models.Count('answers')).order_by('-answers_count')[:n]
-
+    def top_users(self, limit=10):
+        return self.annotate(total_likes=models.Count('user__questions__likes', distinct=True) + models.Count('user__answers__likes', distinct=True)).order_by('-total_likes')[:limit]
 
 
 class TagManager(models.Manager):

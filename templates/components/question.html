@@ -17,11 +17,11 @@
 
                 <div class="d-flex gap-5">
                     <a href="{% url 'question' question.id %}" class="card-link">Answer (3)</a>
-                    <div>Tags:</div>
-
-                    {% for tag in question.tags.all %}
-                        {% include 'layouts/tag-element.html' %}
-                    {% endfor %}
+                    <div>Tags:
+                        {% for tag in question.tags.all %}
+                            {% include 'components/tag-element.html' %}
+                        {% endfor %}
+                    </div>
                     
                 </div>
             </div>

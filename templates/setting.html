@@ -6,10 +6,9 @@
     <div class="col-9">
           <h2 class="mb-4">User Settings</h2>
           <form id="settingsForm">
-            <!-- Поле для логина -->
             <div class="mb-3">
-              <label for="login" class="form-label">Login</label>
-              <input type="text" class="form-control" id="login" value="user_login" >
+                <label for="login" class="form-label">Login</label>
+                <input type="text" class="form-control" id="login" value="user_login" >
             </div>
 
 
@@ -26,12 +25,12 @@
 
 
             <div class="mb-3">
-              <label class="form-label">Current Avatar</label>
-              <div class="mb-2">
-                <img src="avatar.jpg" alt="User Avatar" class="img-thumbnail" style="width: 150px;">
-              </div>
-              <input type="file" class="form-control" id="newAvatar" accept="image/*">
-              <div class="form-text">Select a new avatar to upload</div>
+                <label class="form-label">Current Avatar</label>
+                <div class="mb-2">
+                    <img src="avatar.jpg" alt="User Avatar" class="img-thumbnail" style="width: 150px;">
+                </div>
+                <input type="file" class="form-control" id="newAvatar" accept="image/*">
+                <div class="form-text">Select a new avatar to upload</div>
             </div>
 
 
@@ -41,10 +40,10 @@
 
     <script>
 
-      document.getElementById('settingsForm').addEventListener('submit', function(event) {
-        event.preventDefault();
-        alert("Settings saved successfully!");
-      });
+        document.getElementById('settingsForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            alert("Settings saved successfully!");
+        });
     </script>
 
 {% endblock  %}

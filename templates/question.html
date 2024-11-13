@@ -20,7 +20,7 @@
         
                                     <div>Tags:
                                         {% for tag in question.tags.all %}
-                                            {% include 'layouts/tag-element.html' %}
+                                            {% include 'components/tag-element.html' %}
                                         {% endfor %}
                                       </div>
                                 </div>
@@ -29,7 +29,7 @@
                     </div>
                     <hr>
                     {% for answer in answers %}
-                        {% include 'layouts/answer.html' %}
+                        {% include 'components/answer.html' %}
                     {% endfor %}
 
                     <hr>
@@ -41,7 +41,7 @@
                     
 
                 </div>
-                {% include 'layouts/pagination.html' %}
+                {% include 'components/pagination.html' %}
             </div>
 
 {% endblock  %}

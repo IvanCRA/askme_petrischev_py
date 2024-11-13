@@ -12,7 +12,11 @@
             <div class="col-9">
                 <p class="card-text">{{ answer.text }}</p>
                 <div>
-                    <label><input type="checkbox"> Correct!</label>
+                    {% if answer.is_accepted  %}
+                        <label><input type="checkbox" checked="checked"></label>
+                    {% else %}
+                        <label><input type="checkbox" > </label>
+                    {% endif %}
                 </div>
             </div>
         </div>

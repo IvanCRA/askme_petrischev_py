@@ -1,35 +1,30 @@
-import copy
-from django.http import HttpResponse
 from django.shortcuts import render
 from .models import Question, Answer, Tag, Profile
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-QUESTIONS = [
-    {
-        'title': f'title {i}',
-        'id': i,
-        'text': f'This is text for question # {i}'
-    } for i in range(30)
-]
+def paginate(obj_list, req, per_page=4):
+    
+    try:
+        page_num = int(req.GET.get('page', 1))
+    except ValueError:
+        page_num = 1
+    
+    paginator = Paginator(obj_list, per_page)
+    
+    try:
+        return paginator.page(page_num)
+
+    except EmptyPage:
+        return paginator.page(paginator.num_pages)
 
 
 def index(request):
-    page_num = int(request.GET.get('page', 1))
     questions = Question.objects.all().order_by('-created_at')
     popular_tags = Tag.objects.get_popular_n_tags()
-    #top_users = Profile.objects.get_top_n_users_by_number_of_answers(5)
-
-    paginator = Paginator(questions, 5)
+    top_users = Profile.objects.top_users(5)
     
-    try:
-        page = paginator.page(page_num)
+    page = paginate(questions, request, 5)
 
-    except PageNotAnInteger:
-        page = paginator.page(1)
-
-    except EmptyPage:
-        page = paginator.page(paginator.num_pages)
-    
     return render(
         request, 
         'index.html', 
@@ -37,7 +32,7 @@ def index(request):
             'questions':page.object_list, 
             'page_obj':page,
             'popular_tags': popular_tags, 
-            #'top_users': top_users,
+            'top_users': top_users,
         }
     )
 
@@ -45,19 +40,10 @@ def index(request):
 def hot(request):
     hot_questions = Question.objects.get_best_questions()
     popular_tags = Tag.objects.get_popular_n_tags()
-    #top_users = Profile.objects.get_top_n_users_by_number_of_answers(5)
+    top_users = Profile.objects.top_users(5)
 
-    page_num = int(request.GET.get('page', 1))
-    paginator = Paginator(hot_questions, 5)
-    
-    try:
-        page = paginator.page(page_num)
 
-    except PageNotAnInteger:
-        page = paginator.page(1)
-
-    except EmptyPage:
-        page = paginator.page(paginator.num_pages)
+    page = paginate(hot_questions, request, 5)
 
     return render(
         request,
@@ -66,7 +52,7 @@ def hot(request):
             'questions': page.object_list, 
             'page_obj': page,
             'popular_tags': popular_tags, 
-            #'top_users': top_users
+            'top_users': top_users
         }
     )
 
@@ -77,7 +63,7 @@ def question(request, question_id):
     #    return question_not_found(request)
 
     popular_tags = Tag.objects.get_popular_n_tags()
-    #top_users = Profile.objects.get_top_n_users_by_number_of_answers(5)
+    top_users = Profile.objects.top_users(5)
 
     return render(
         request,
@@ -86,27 +72,17 @@ def question(request, question_id):
             'question': Question.objects.get_question_by_id(question_id),
             'answers': Answer.objects.get_answers_by_question_id(question_id),
             'popular_tags': popular_tags,
-            #'top_users': top_users
+            'top_users': top_users
         }
     )
 
 def tag(request, tag_name):
     questions = Question.objects.get_questions_by_tag_name(tag_name)
     popular_tags = Tag.objects.get_popular_n_tags()
-    #top_users = Profile.objects.get_top_n_users_by_number_of_answers(5)
+    top_users = Profile.objects.top_users(5)
 
-    page_num = int(request.GET.get('page', 1))
-    paginator = Paginator(questions, 5)
-    
-    try:
-        page = paginator.page(page_num)
 
-    except PageNotAnInteger:
-        page = paginator.page(1)
-
-    except EmptyPage:
-        page = paginator.page(paginator.num_pages)
-
+    page = paginate(questions, request, 5)
     return render(
         request,
         template_name="tag.html",
@@ -117,7 +93,7 @@ def tag(request, tag_name):
             'tag_name': tag_name,
 
             'popular_tags': popular_tags,
-           # 'top_users': top_users
+            'top_users': top_users
         }
     )
 
@@ -128,22 +104,43 @@ def signup(request):
     return render(request, 'signup.html')
 
 def ask(request):
-    return render(request, 'ask.html')
+    popular_tags = Tag.objects.get_popular_n_tags()
+    top_users = Profile.objects.top_users(5)
+
+    return render(
+        request, 
+        'ask.html',
+        context={
+            'popular_tags': popular_tags,
+            'top_users': top_users,
+        }
+    )
 
 def setting(request):
-    return render(request, 'setting.html')
+    popular_tags = Tag.objects.get_popular_n_tags()
+    top_users = Profile.objects.top_users(5)
+
+    return render(
+        request, 
+        'setting.html',
+        context={
+            'popular_tags': popular_tags,
+            'top_users': top_users,
+        }
+    )
 
 
 def question_not_found(request):
     popular_tags = Tag.objects.get_popular_n_tags()
-    top_users = Profile.objects.get_top_n_users_by_number_of_answers(5)
+    top_users = Profile.objects.top_users(5)
+
 
     return render(
-            request,
-            'question_not_found.html',
-            status=404,
-            context={
-                'popular_tags': popular_tags,
-                'top_users': top_users
-            }
-        )
+        request,
+        'question_not_found.html',
+        status=404,
+        context={
+            'popular_tags': popular_tags,
+            'top_users': top_users
+        }
+    )
